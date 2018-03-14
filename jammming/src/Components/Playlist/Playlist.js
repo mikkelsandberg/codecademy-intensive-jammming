@@ -6,7 +6,7 @@ class Playlist extends React.Component {
   render() {
     return (
       <div className="Playlist">
-        <input value={this.props.playlistName} />
+        <input placeholder="New Playlist" />
         <TrackList
           trackList={this.props.trackList}
           isRemoval={true} />

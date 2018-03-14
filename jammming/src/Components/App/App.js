@@ -53,7 +53,7 @@ class App extends Component {
           albumName: "My Love Is Your Love"
         }
       ],
-      playlistName: "New Playlist"
+      playlistName: ""
     };
   }
 
@@ -75,7 +75,7 @@ class App extends Component {
           <Playlist
             trackList={this.state.playlist}
             action="-"
-            playListName={this.state.playlistName}
+            playlistName={this.state.playlistName}
             updatePlayListName={this.updatePlaylistName} />
         </div>
       </div>
