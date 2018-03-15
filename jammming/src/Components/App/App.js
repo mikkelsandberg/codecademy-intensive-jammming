@@ -8,59 +8,75 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    this.addTrack = this.addTrack.bind(this);
+
     this.state = {
       searchResults: [
         {
-          trackName: "Tiny Dancer",
-          artistName: "Elton John",
-          albumName: "Madman Across The Water"
+          id: 0,
+          name: "Tiny Dancer",
+          artist: "Elton John",
+          album: "Madman Across The Water"
         },
         {
-          trackName: "Tiny Dancer",
-          artistName: "Tim McGraw",
-          albumName: "Love Story"
+          id: 1,
+          name: "Tiny Dancer",
+          artist: "Tim McGraw",
+          album: "Love Story"
         },
         {
-          trackName: "Tiny Dancer",
-          artistName: "Rockabye Baby!",
-          albumName: "Lullaby Renditions of Elton John"
+          id: 2,
+          name: "Tiny Dancer",
+          artist: "Rockabye Baby!",
+          album: "Lullaby Renditions of Elton John"
         },
         {
-          trackName: "Tiny Dancer",
-          artistName: "The White Raven",
-          albumName: "Tiny Dancer"
+          id: 3,
+          name: "Tiny Dancer",
+          artist: "The White Raven",
+          album: "Tiny Dancer"
         },
         {
-          trackName: "Tiny Dancer",
-          artistName: "Ben Folds",
-          albumName: "Ben Folds Live"
+          id: 4,
+          name: "Tiny Dancer",
+          artist: "Ben Folds",
+          album: "Ben Folds Live"
+        },
+        {
+          id: 7,
+          name: "It's Not Right But It's Okay",
+          artist: "Whitney Houston",
+          album: "My Love Is Your Love"
         }
       ],
-      playlist: [
+      playlistTracks: [
         {
-          trackName: "Stronger",
-          artistName: "Britney Spears",
-          albumName: "Oops!... I Did It Again"
+          id: 5,
+          name: "Stronger",
+          artist: "Britney Spears",
+          album: "Oops!... I Did It Again"
         },
         {
-          trackName: "So Emotional",
-          artistName: "Whitney Houston",
-          albumName: "Whitney"
+          id: 6,
+          name: "So Emotional",
+          artist: "Whitney Houston",
+          album: "Whitney"
         },
         {
-          trackName: "It's Not Right But It's Okay",
-          artistName: "Whitney Houston",
-          albumName: "My Love Is Your Love"
+          id: 7,
+          name: "It's Not Right But It's Okay",
+          artist: "Whitney Houston",
+          album: "My Love Is Your Love"
         }
       ],
       playlistName: ""
     };
   }
 
-  updatePlayListName(e) {
+  addTrack(track) {
     this.setState({
-      playlistName: e.target.value
-    });
+      playlistTracks: [...this.state.playlistTracks, track]
+    })
   }
 
   render() {
@@ -70,11 +86,10 @@ class App extends Component {
         <SearchBar />
         <div className="App-playlist">
           <SearchResults
-            trackList={this.state.searchResults}
-            action="+" />
+            searchResults={this.state.searchResults}
+            onAdd={this.addTrack} />
           <Playlist
-            trackList={this.state.playlist}
-            action="-"
+            playlistTracks={this.state.playlistTracks}
             playlistName={this.state.playlistName}
             updatePlayListName={this.updatePlaylistName} />
         </div>
