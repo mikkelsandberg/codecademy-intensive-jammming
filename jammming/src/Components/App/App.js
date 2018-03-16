@@ -9,6 +9,7 @@ class App extends Component {
     super(props);
 
     this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
 
     this.state = {
       searchResults: [
@@ -74,9 +75,24 @@ class App extends Component {
   }
 
   addTrack(track) {
+    if (this.state.playlistTracks.find(item => item.id === track.id) === undefined) {
+      console.log(`adding ${track.name} by ${track.artist} to the playlist`);
+      this.setState({
+        playlistTracks: [...this.state.playlistTracks, track]
+      })
+      return;
+    }
+    console.log(`${track.name} by ${track.artist} is already in the playlist; skipping`);
+    return;
+  }
+
+  removeTrack(track) {
+    const tempPlaylist = this.state.playlistTracks.filter(item => item.id !== track.id);
+
     this.setState({
-      playlistTracks: [...this.state.playlistTracks, track]
+      playlistTracks: tempPlaylist
     })
+    console.log(`removing ${track.name} by ${track.artist}`);
   }
 
   render() {
@@ -91,7 +107,8 @@ class App extends Component {
           <Playlist
             playlistTracks={this.state.playlistTracks}
             playlistName={this.state.playlistName}
-            updatePlayListName={this.updatePlaylistName} />
+            updatePlayListName={this.updatePlaylistName}
+            onRemove={this.removeTrack} />
         </div>
       </div>
     );
