@@ -10,6 +10,9 @@ class App extends Component {
 
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
+    this.updatePlaylistName = this.updatePlaylistName.bind(this);
+    this.savePlaylist = this.savePlaylist.bind(this);
+    this.search = this.search.bind(this);
 
     this.state = {
       searchResults: [
@@ -95,11 +98,28 @@ class App extends Component {
     console.log(`removing ${track.name} by ${track.artist}`);
   }
 
+  updatePlaylistName(name) {
+    this.setState({
+      playlistName: name
+    })
+  }
+
+  savePlaylist() {
+    const trackURIs = [];
+    this.state.playlistTracks.forEach(item => trackURIs.push(item.id));
+    return trackURIs;
+  }
+
+  search(term) {
+    console.log(term);
+  }
+
   render() {
     return (
       <div className="App">
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
-        <SearchBar />
+        <SearchBar
+          onSearch={this.search} />
         <div className="App-playlist">
           <SearchResults
             searchResults={this.state.searchResults}
@@ -107,8 +127,9 @@ class App extends Component {
           <Playlist
             playlistTracks={this.state.playlistTracks}
             playlistName={this.state.playlistName}
-            updatePlayListName={this.updatePlaylistName}
-            onRemove={this.removeTrack} />
+            onNameChange={this.updatePlaylistName}
+            onRemove={this.removeTrack}
+            onSave={this.savePlaylist} />
         </div>
       </div>
     );
