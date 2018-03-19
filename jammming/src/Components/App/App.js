@@ -3,6 +3,7 @@ import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
 import './App.css';
+import Spotify from '../../util/Spotify';
 
 class App extends Component {
   constructor(props) {
@@ -17,60 +18,60 @@ class App extends Component {
     this.state = {
       searchResults: [
         {
-          id: 0,
-          name: "Tiny Dancer",
-          artist: "Elton John",
-          album: "Madman Across The Water"
+          ID: 0,
+          Name: "Tiny Dancer",
+          Artist: "Elton John",
+          Album: "Madman Across The Water"
         },
         {
-          id: 1,
-          name: "Tiny Dancer",
-          artist: "Tim McGraw",
-          album: "Love Story"
+          ID: 1,
+          Name: "Tiny Dancer",
+          Artist: "Tim McGraw",
+          Album: "Love Story"
         },
         {
-          id: 2,
-          name: "Tiny Dancer",
-          artist: "Rockabye Baby!",
-          album: "Lullaby Renditions of Elton John"
+          ID: 2,
+          Name: "Tiny Dancer",
+          Artist: "Rockabye Baby!",
+          Album: "Lullaby Renditions of Elton John"
         },
         {
-          id: 3,
-          name: "Tiny Dancer",
-          artist: "The White Raven",
-          album: "Tiny Dancer"
+          ID: 3,
+          Name: "Tiny Dancer",
+          Artist: "The White Raven",
+          Album: "Tiny Dancer"
         },
         {
-          id: 4,
-          name: "Tiny Dancer",
-          artist: "Ben Folds",
-          album: "Ben Folds Live"
+          ID: 4,
+          Name: "Tiny Dancer",
+          Artist: "Ben Folds",
+          Album: "Ben Folds Live"
         },
         {
-          id: 7,
-          name: "It's Not Right But It's Okay",
-          artist: "Whitney Houston",
-          album: "My Love Is Your Love"
+          ID: 7,
+          Name: "It's Not Right But It's Okay",
+          Artist: "Whitney Houston",
+          Album: "My Love Is Your Love"
         }
       ],
       playlistTracks: [
         {
-          id: 5,
-          name: "Stronger",
-          artist: "Britney Spears",
-          album: "Oops!... I Did It Again"
+          ID: 5,
+          Name: "Stronger",
+          Artist: "Britney Spears",
+          Album: "Oops!... I Did It Again"
         },
         {
-          id: 6,
-          name: "So Emotional",
-          artist: "Whitney Houston",
-          album: "Whitney"
+          ID: 6,
+          Name: "So Emotional",
+          Artist: "Whitney Houston",
+          Album: "Whitney"
         },
         {
-          id: 7,
-          name: "It's Not Right But It's Okay",
-          artist: "Whitney Houston",
-          album: "My Love Is Your Love"
+          ID: 7,
+          Name: "It's Not Right But It's Okay",
+          Artist: "Whitney Houston",
+          Album: "My Love Is Your Love"
         }
       ],
       playlistName: ""
@@ -78,24 +79,24 @@ class App extends Component {
   }
 
   addTrack(track) {
-    if (this.state.playlistTracks.find(item => item.id === track.id) === undefined) {
-      console.log(`adding ${track.name} by ${track.artist} to the playlist`);
+    if (this.state.playlistTracks.find(item => item.ID === track.ID) === undefined) {
+      console.log(`adding ${track.Name} by ${track.Artist} to the playlist`);
       this.setState({
         playlistTracks: [...this.state.playlistTracks, track]
       })
       return;
     }
-    console.log(`${track.name} by ${track.artist} is already in the playlist; skipping`);
+    console.log(`${track.Name} by ${track.Artist} is already in the playlist; skipping`);
     return;
   }
 
   removeTrack(track) {
-    const tempPlaylist = this.state.playlistTracks.filter(item => item.id !== track.id);
+    const tempPlaylist = this.state.playlistTracks.filter(item => item.ID !== track.ID);
 
     this.setState({
       playlistTracks: tempPlaylist
     })
-    console.log(`removing ${track.name} by ${track.artist}`);
+    console.log(`removing ${track.Name} by ${track.Artist}`);
   }
 
   updatePlaylistName(name) {
@@ -111,7 +112,17 @@ class App extends Component {
   }
 
   search(term) {
-    console.log(term);
+    if (term !== '') {
+      Spotify.search(term).then(searchResults => {
+        this.setState({
+          searchResults: searchResults
+        });
+      });
+    }
+  }
+
+  componentDidMount() {
+    Spotify.getAccessToken();
   }
 
   render() {

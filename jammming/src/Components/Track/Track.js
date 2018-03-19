@@ -25,8 +25,8 @@ class Track extends React.Component {
     return (
       <div className="Track">
         <div className="Track-information">
-          <h3>{this.props.name}</h3>
-          <p>{this.props.artist} | {this.props.album}</p>
+          <h3>{this.props.Name}</h3>
+          <p>{this.props.Artist} | {this.props.Album}</p>
         </div>
         {
           this.props.isRemoval ?
