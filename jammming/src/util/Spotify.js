@@ -2,31 +2,34 @@ let accessToken;
 let expiresIn;
 let tracks = [];
 const clientId = '67fa2734f1e14488837c8b02e35de685';
+const scope = 'playlist-modify-private playlist-modify-public'
 const redirectURI = 'http://localhost:3000/';
-const debugging = false;
+const debugGetAccessToken = false;
+const debugSearch = false;
+const debugSavePlaylist = false;
 
 const Spotify = {
   getAccessToken() {
     if (accessToken !== undefined) {
-      if (debugging) {console.log('first condition met');}
-      if (debugging) {console.log(accessToken);}
-      if (debugging) {console.log(expiresIn);}
+      if (debugGetAccessToken) {console.log('first condition met');}
+      if (debugGetAccessToken) {console.log(accessToken);}
+      if (debugGetAccessToken) {console.log(expiresIn);}
       return accessToken;
     } else if (window.location.href.match(/access_token=([^&]*)/) && window.location.href.match(/expires_in=([^&]*)/)) {
-      if (debugging) {console.log('second condition met');}
+      if (debugGetAccessToken) {console.log('second condition met');}
       accessToken = window.location.href.match(/access_token=([^&]*)/)[1];
       expiresIn = window.location.href.match(/expires_in=([^&]*)/)[1];
-      if (debugging) {console.log(accessToken);}
-      if (debugging) {console.log(expiresIn);}
+      if (debugGetAccessToken) {console.log(accessToken);}
+      if (debugGetAccessToken) {console.log(expiresIn);}
 
       window.setTimeout(() => accessToken = '', expiresIn * 1000);
       window.history.pushState('Access Token', null, '/');
       return accessToken;
     } else {
-      if (debugging) {console.log('third condition met');}
-      if (debugging) {console.log(accessToken);}
-      if (debugging) {console.log(expiresIn);}
-      window.location = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`;
+      if (debugGetAccessToken) {console.log('third condition met');}
+      if (debugGetAccessToken) {console.log(accessToken);}
+      if (debugGetAccessToken) {console.log(expiresIn);}
+      window.location = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=${encodeURIComponent(scope)}&redirect_uri=${redirectURI}`;
       return;
     }
   },
@@ -41,7 +44,7 @@ const Spotify = {
         tracks = [];
         return tracks;
       } else {
-        if (debugging) {
+        if (debugSearch) {
           console.log(jsonResponse);
           jsonResponse.tracks.items.map(track => {
             return console.log(`"${track.name}" by ${track.artists[0].name} from the ${track.album.album_type} "${track.album.name}". URI: ${track.uri}`);
@@ -49,15 +52,14 @@ const Spotify = {
         }
         tracks = jsonResponse.tracks.items.map(track => {
           return {
-            ID: track.id,
+            ID: track.uri,
             Name: track.name,
             Artist: track.artists[0].name,
-            Album: track.album.name,
-            URI: track.uri
+            Album: track.album.name
           }
         });
 
-        if (debugging) {console.log(tracks);}
+        if (debugSearch) {console.log(tracks);}
 
         return tracks;
       }
@@ -73,33 +75,51 @@ const Spotify = {
         Authorization: `Bearer ${userToken}`
       };
       let userID;
+      let playlistID;
 
-      fetch('https://api.spotify.com/v1/me', {
+      fetch(`https://api.spotify.com/v1/me`, {
         headers: headers
-      }).then(response => response.json()).then(jsonResponse => {
+      }).then(response => {
+        if (debugSavePlaylist) {console.log('response:', response)}
+        return response.json();
+      }).then(jsonResponse => {
+        if (debugSavePlaylist) {console.log('jsonResponse.id:', jsonResponse.id)}
         userID = jsonResponse.id;
         return userID;
-      });
-
-      fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
-        headers: headers,
-        method: 'post',
-        body: JSON.stringify({
-          name: playlistName,
-          public: false,
-          collaborative: false
-        })
-      }).then(response => response.json()).then(playlistID => {
-        fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
+      }).then(uid => {
+        fetch(`https://api.spotify.com/v1/users/${uid}/playlists`, {
           headers: {
             ...headers,
-            "Content-Type": "application/json"
+            "content-type": "application/json"
           },
           method: 'post',
           body: JSON.stringify({
-            uris: trackURIs
+            name: playlistName,
+            public: false,
+            collaborative: false
           })
-        }).then(response => response.json());
+        }).then(response => {
+          if (debugSavePlaylist) {console.log('response:', response)}
+          return response.json();
+        }).then(jsonResponse => {
+          if (debugSavePlaylist) {console.log('jsonResponse.id:', jsonResponse.id)}
+          playlistID = jsonResponse.id;
+          return playlistID;
+        }).then(pid => {
+          fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${pid}/tracks?uris=${trackURIs}`, {
+            headers: {
+              ...headers,
+              "content-type": "application/json"
+            },
+            method: 'post'
+          }).then(response => {
+            if (debugSavePlaylist) {console.log('response:', response)}
+            return response.json();
+          }).then(jsonResponse => {
+            if (debugSavePlaylist) {console.log('jsonResponse:', jsonResponse)}
+            return jsonResponse;
+          })
+        })
       });
     }
   }

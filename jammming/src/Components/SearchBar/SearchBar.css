@@ -21,18 +21,19 @@
   outline: none;
 }
 
-.SearchBar button {
+.SearchBar .SearchButton {
   cursor: pointer;
   width: 8.11rem;
   padding: .77rem 0;
   border-radius: 54px;
   background-color: #010c3f;
+  color: #fff;
   text-align: center;
   font-size: .833rem;
   color: #fff;
   transition: background-color .25s;
 }
 
-.SearchBar button:hover {
+.SearchBar .SearchButton:hover {
   background-color: rgba(108, 65, 233, .7);
 }

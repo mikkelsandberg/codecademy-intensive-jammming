@@ -1,7 +1,5 @@
 .Playlist {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  text-align: center;
   overflow-y: scroll;
   width: 45%;
   max-height: 500px;
@@ -12,7 +10,6 @@
 }
 
 .Playlist input {
-  width: 100%;
   border: 0;
   outline: 0;
   background: transparent;
@@ -27,8 +24,10 @@
   width: 10rem;
   padding: .77rem 0;
   border-radius: 54px;
+  border: 0;
   margin-top: 1.27rem;
   background-color: #6c41ec;
+  color: #fff;
   text-align: center;
   font-size: .83rem;
   transition: background-color .25s;
