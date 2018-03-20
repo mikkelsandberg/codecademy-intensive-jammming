@@ -73,22 +73,22 @@ class App extends Component {
   savePlaylist(e) {
     e.preventDefault();
 
-    const trackURIs = [];
+    if (this.state.playlistName !== '' && this.state.playlistTracks.length !== 0) {
+      const trackURIs = [];
 
-    this.state.playlistTracks.forEach(item => trackURIs.push(item.ID));
+      this.state.playlistTracks.forEach(item => trackURIs.push(item.ID));
 
-    Spotify.savePlaylist(this.state.playlistName, trackURIs);
+      Spotify.savePlaylist(this.state.playlistName, trackURIs);
 
-    this.setState({
-      searchTerm: '',
-      searchResults: [],
-      playlistTracks: [],
-      playlistName: ''
-    });
+      this.setState({
+        searchTerm: '',
+        searchResults: [],
+        playlistTracks: [],
+        playlistName: ''
+      });
 
-    document.querySelectorAll('#searchBar input, #playlist input').forEach(input => input.value = '');
-
-    return trackURIs;
+      document.querySelectorAll('#searchBar input, #playlist input').forEach(input => input.value = '');
+    }
   }
 
   componentDidMount() {
