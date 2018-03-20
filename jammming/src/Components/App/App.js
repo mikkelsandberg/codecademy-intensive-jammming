@@ -16,64 +16,8 @@ class App extends Component {
     this.search = this.search.bind(this);
 
     this.state = {
-      searchResults: [
-        {
-          ID: 0,
-          Name: "Tiny Dancer",
-          Artist: "Elton John",
-          Album: "Madman Across The Water"
-        },
-        {
-          ID: 1,
-          Name: "Tiny Dancer",
-          Artist: "Tim McGraw",
-          Album: "Love Story"
-        },
-        {
-          ID: 2,
-          Name: "Tiny Dancer",
-          Artist: "Rockabye Baby!",
-          Album: "Lullaby Renditions of Elton John"
-        },
-        {
-          ID: 3,
-          Name: "Tiny Dancer",
-          Artist: "The White Raven",
-          Album: "Tiny Dancer"
-        },
-        {
-          ID: 4,
-          Name: "Tiny Dancer",
-          Artist: "Ben Folds",
-          Album: "Ben Folds Live"
-        },
-        {
-          ID: 7,
-          Name: "It's Not Right But It's Okay",
-          Artist: "Whitney Houston",
-          Album: "My Love Is Your Love"
-        }
-      ],
-      playlistTracks: [
-        {
-          ID: 5,
-          Name: "Stronger",
-          Artist: "Britney Spears",
-          Album: "Oops!... I Did It Again"
-        },
-        {
-          ID: 6,
-          Name: "So Emotional",
-          Artist: "Whitney Houston",
-          Album: "Whitney"
-        },
-        {
-          ID: 7,
-          Name: "It's Not Right But It's Okay",
-          Artist: "Whitney Houston",
-          Album: "My Love Is Your Love"
-        }
-      ],
+      searchResults: [],
+      playlistTracks: [],
       playlistName: ""
     };
   }
@@ -107,7 +51,10 @@ class App extends Component {
 
   savePlaylist() {
     const trackURIs = [];
-    this.state.playlistTracks.forEach(item => trackURIs.push(item.id));
+    this.state.playlistTracks.forEach(item => trackURIs.push(item.ID));
+
+    Spotify.savePlaylist(this.state.playlistName, trackURIs);
+
     return trackURIs;
   }
 

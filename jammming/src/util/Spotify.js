@@ -38,15 +38,7 @@ const Spotify = {
       }
     }).then(response => response.json()).then(jsonResponse => {
       if (jsonResponse.tracks === undefined || jsonResponse.tracks.items.length === 0) {
-        tracks = [
-          {
-            ID: '',
-            Name: 'No results',
-            Artist: '',
-            Album: '',
-            URI: ''
-          }
-        ];
+        tracks = [];
         return tracks;
       } else {
         if (debugging) {
@@ -70,8 +62,47 @@ const Spotify = {
         return tracks;
       }
     });
-  }
+  },
   
+  savePlaylist(playlistName, trackURIs) {
+    if (playlistName === '' || trackURIs === '') {
+      return;
+    } else {
+      let userToken = accessToken;
+      let headers = {
+        Authorization: `Bearer ${userToken}`
+      };
+      let userID;
+
+      fetch('https://api.spotify.com/v1/me', {
+        headers: headers
+      }).then(response => response.json()).then(jsonResponse => {
+        userID = jsonResponse.id;
+        return userID;
+      });
+
+      fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
+        headers: headers,
+        method: 'post',
+        body: JSON.stringify({
+          name: playlistName,
+          public: false,
+          collaborative: false
+        })
+      }).then(response => response.json()).then(playlistID => {
+        fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
+          headers: {
+            ...headers,
+            "Content-Type": "application/json"
+          },
+          method: 'post',
+          body: JSON.stringify({
+            uris: trackURIs
+          })
+        }).then(response => response.json());
+      });
+    }
+  }
 }
 
 export default Spotify;
