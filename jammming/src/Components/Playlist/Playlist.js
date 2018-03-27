@@ -8,6 +8,7 @@ class Playlist extends React.Component {
       <form onSubmit={this.props.onSave} className="Playlist" id="playlist">
         <input
           placeholder="New Playlist"
+          value={this.props.playlistName}
           onChange={this.props.handlePlaylistNameChange} />
         <TrackList
           tracks={this.props.playlistTracks}

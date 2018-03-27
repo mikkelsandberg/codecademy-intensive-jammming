@@ -86,8 +86,6 @@ class App extends Component {
         playlistTracks: [],
         playlistName: ''
       });
-
-      document.querySelectorAll('#searchBar input, #playlist input').forEach(input => input.value = '');
     }
   }
 

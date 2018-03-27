@@ -8,7 +8,7 @@ const devRedirectURI = 'http://localhost:3000/';
 const debugGetAccessToken = false;
 const debugSearch = false;
 const debugSavePlaylist = false;
-const isDevMode = false;
+const isDevMode = true;
 
 const Spotify = {
   getAccessToken() {
