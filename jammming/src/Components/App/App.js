@@ -96,7 +96,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <SearchBar
           handleSearchTermChange={this.handleSearchTermChange}
           searchTerm={this.state.searchTerm}

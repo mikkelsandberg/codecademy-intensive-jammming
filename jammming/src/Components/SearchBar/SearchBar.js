@@ -10,7 +10,7 @@ class SearchBar extends React.Component {
           value={this.props.searchTerm}
           placeholder="Enter A Song Title, Album, or Artist"
           onChange={this.props.handleSearchTermChange} />
-        <button className="SearchButton" form="searchBar">SEARCH</button>
+        <button className="SearchButton" form="searchBar"></button>
       </form>
     );
   }

@@ -57,7 +57,9 @@ const Spotify = {
             ID: track.uri,
             Name: track.name,
             Artist: track.artists[0].name,
-            Album: track.album.name
+            Album: track.album.name,
+            Image: track.album.images[0].url,
+            Date: track.album.release_date
           }
         });
 

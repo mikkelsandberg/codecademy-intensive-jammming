@@ -1,39 +1,39 @@
 .SearchBar {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  padding-top: 6.94rem;
-  margin-bottom: 6.33rem;
+  border-bottom: 1px solid #fff;
+  padding: 0 .75rem .75rem;
+  max-width: 440px;
+  margin: 0 auto 40px;
 }
+  .SearchBar input {
+    font-size: 1.5rem;
+    line-height: 1em;
+    color: #fff;
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    width: 100%;
+    -webkit-appearance: none;
+  }
+    .SearchBar input:focus {
+      outline: none;
+    }
 
-.SearchBar input {
-  width: 287px;
-  padding: .88rem 0;
-  border: 1px solid #fff;
-  border-radius: 3px;
-  margin-bottom: 2.22rem;
-  color: #010c3f;
-  text-align: center;
-  font-size: 1rem;
-}
+    .SearchBar input::placeholder {
+      color: #fff;
+    }
 
-.SearchBar input:focus {
-  outline: none;
-}
-
-.SearchBar .SearchButton {
-  cursor: pointer;
-  width: 8.11rem;
-  padding: .77rem 0;
-  border-radius: 54px;
-  background-color: #010c3f;
-  color: #fff;
-  text-align: center;
-  font-size: .833rem;
-  color: #fff;
-  transition: background-color .25s;
-}
-
-.SearchBar .SearchButton:hover {
-  background-color: rgba(108, 65, 233, .7);
-}
+  .SearchBar .SearchButton {
+    background-image: url(../../images/search-icon.svg);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: 0;
+    padding: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+  }
+    .SearchBar .SearchButton:focus {
+      outline: none;
+    }

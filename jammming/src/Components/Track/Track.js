@@ -18,15 +18,20 @@ class Track extends React.Component {
   }
 
   renderAction() {
-    return (this.props.isRemoval ? '-' : '+');
+    return (this.props.isRemoval ? 'Remove from Playlist' : 'Add to Playlist');
   }
 
   render() {
     return (
       <div className="Track">
+        <div className="Track-image">
+          <img src={this.props.Image} alt="album artwork" />
+        </div>
         <div className="Track-information">
-          <h3>{this.props.Name}</h3>
-          <p>{this.props.Artist} | {this.props.Album}</p>
+          <h3 title={this.props.Name}>{this.props.Name}</h3>
+          <h4 title={this.props.Artist}>{this.props.Artist}</h4>
+          <h4 title={this.props.Album}>{this.props.Album}</h4>
+          <h5>{this.props.Date.split('-')[0]}</h5>
         </div>
         {
           this.props.isRemoval ?
