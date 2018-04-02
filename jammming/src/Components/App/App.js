@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import NavTabs from '../NavTabs/NavTabs';
+import { Switch, Route } from 'react-router-dom';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
@@ -96,21 +98,40 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <SearchBar
-          handleSearchTermChange={this.handleSearchTermChange}
-          searchTerm={this.state.searchTerm}
-          onSearch={this.search} />
-        <div className="App-playlist">
-          <SearchResults
-            searchResults={this.state.searchResults}
-            onAdd={this.addTrack} />
-          <Playlist
-            playlistTracks={this.state.playlistTracks}
-            playlistName={this.state.playlistName}
-            handlePlaylistNameChange={this.handlePlaylistNameChange}
-            onRemove={this.removeTrack}
-            onSave={this.savePlaylist} />
-        </div>
+        <NavTabs />
+        <Switch>
+          <Route exact path='/'
+            render={() => {
+              return (
+                <div>
+                  <SearchBar
+                    handleSearchTermChange={this.handleSearchTermChange}
+                    searchTerm={this.state.searchTerm}
+                    onSearch={this.search} />
+                  <div className="App-tracklist">
+                    <SearchResults
+                      searchResults={this.state.searchResults}
+                      onAdd={this.addTrack} />
+                  </div>
+                </div>
+              )
+            }}
+          />
+          <Route exact path='/playlist'
+            render={() => {
+              return (
+                <div className="App-tracklist">
+                  <Playlist
+                    playlistTracks={this.state.playlistTracks}
+                    playlistName={this.state.playlistName}
+                    handlePlaylistNameChange={this.handlePlaylistNameChange}
+                    onRemove={this.removeTrack}
+                    onSave={this.savePlaylist} /> 
+                </div>
+              )
+            }}
+          />
+        </Switch>
       </div>
     );
   }

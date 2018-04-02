@@ -1,0 +1,23 @@
+nav {
+  margin-bottom: 50px;
+}
+  nav ul {
+    display: flex;
+    justify-content: center;
+  }
+    nav ul li {
+      margin: 0 2rem;
+    }
+      nav ul li a:link,
+      nav ul li a:visited {
+        font-size: 1.2rem;
+        line-height: 1em;
+        color: #fff;
+        text-decoration: none;
+        padding-bottom: .5rem;
+        border-bottom: 1px solid transparent;
+        transition: border-color .2s ease-in-out;
+      }
+        nav ul li a.selected {
+          border-bottom-color: #fff;
+        }

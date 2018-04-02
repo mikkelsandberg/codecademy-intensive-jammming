@@ -1,0 +1,40 @@
+#playlist {
+  height: calc(1.75rem + .75rem + 1px);
+  padding: 0 168px;
+  margin: 0 auto 40px;
+  position: relative;
+}
+  #playlist input {
+    font-size: 1.5rem;
+    line-height: 1em;
+    color: #fff;
+    text-align: center;
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    width: 100%;
+    -webkit-appearance: none;
+  }
+    #playlist input:focus {
+      outline: none;
+    }
+
+    #playlist input::placeholder {
+      color: #fff;
+    }
+
+  #playlist .Playlist-save {
+    font-size: 1rem;
+    line-height: 1em;
+    color: #fff;
+    background-color: #4993b0;
+    border: none;
+    border-radius: 1em;
+    padding: 5px 10px;
+    position: absolute;
+    right: 20px;
+    cursor: pointer;
+  }
+    #playlist .Playlist-save:focus {
+      outline: none;
+    }

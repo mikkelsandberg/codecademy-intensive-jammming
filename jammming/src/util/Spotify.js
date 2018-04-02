@@ -59,7 +59,7 @@ const Spotify = {
             Artist: track.artists[0].name,
             Album: track.album.name,
             Image: track.album.images[0].url,
-            Date: track.album.release_date
+            Release_Date: track.album.release_date
           }
         });
 

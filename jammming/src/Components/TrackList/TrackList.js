@@ -16,7 +16,7 @@ class TrackList extends React.Component {
                 Artist={track.Artist}
                 Album={track.Album}
                 Image={track.Image}
-                Date={track.Date}
+                Release_Date={track.Release_Date}
                 isRemoval={this.props.isRemoval}
                 onAdd={this.props.onAdd}
                 onRemove={this.props.onRemove} />

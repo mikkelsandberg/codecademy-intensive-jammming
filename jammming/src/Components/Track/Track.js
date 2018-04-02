@@ -31,12 +31,12 @@ class Track extends React.Component {
           <h3 title={this.props.Name}>{this.props.Name}</h3>
           <h4 title={this.props.Artist}>{this.props.Artist}</h4>
           <h4 title={this.props.Album}>{this.props.Album}</h4>
-          <h5>{this.props.Date.split('-')[0]}</h5>
+          <h5>{this.props.Release_Date.split('-')[0]}</h5>
         </div>
         {
           this.props.isRemoval ?
-          <a className="Track-action" onClick={this.removeTrack}>{this.renderAction()}</a> :
-          <a className="Track-action" onClick={this.addTrack}>{this.renderAction()}</a>
+          <button className="Track-action" onClick={this.removeTrack}>{this.renderAction()}</button> :
+          <button className="Track-action" onClick={this.addTrack}>{this.renderAction()}</button>
         }
         
       </div>
