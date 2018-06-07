@@ -3,12 +3,12 @@ let expiresIn;
 let tracks = [];
 const clientId = '67fa2734f1e14488837c8b02e35de685';
 const scope = 'playlist-modify-private playlist-modify-public'
-const prodRedirectURI = 'http://msandberg-jammming.surge.sh/';
+const prodRedirectURI = 'http://msandberg-jammming.surge.sh';
 const devRedirectURI = 'http://localhost:3000/';
 const debugGetAccessToken = false;
 const debugSearch = false;
 const debugSavePlaylist = false;
-const isDevMode = true;
+const isDevMode = false;
 
 const Spotify = {
   getAccessToken() {
